@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Heart, Mail, X, Stars, Camera } from "lucide-react";
+import { Heart, Mail, X, Stars, Music, Gift } from "lucide-react";
 
 const ValentinePage = () => {
   const [opened, setOpened] = useState(false);
@@ -7,17 +7,24 @@ const ValentinePage = () => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
   const photos = [
-    "https://i.imgur.com/8jBk1au.jpg",  // Reemplazar con: "primera-foto.jpg"
-    "https://i.imgur.com/aUlDILU.jpg",  // Reemplazar con: "segunda-foto.jpg"
-    "https://i.imgur.com/QyHpPxX.png",  // Reemplazar con: "tercera-foto.jpg"
-    "https://i.imgur.com/ItKvgoC.jpg",  // Reemplazar con: "cuarta-foto.jpg"
+    "https://i.imgur.com/Cf3ixQq.jpg",
+    "https://i.imgur.com/N2HRTVv.jpg",
+    "https://i.imgur.com/gC57G1s.jpg",
+    "https://i.imgur.com/MtRCSGu.jpg"
+  ];
+
+  const memories = [
+    "Tu sonrisa ilumina mi mundo ✨",
+    "Cada momento contigo es mágico 🌟",
+    "Nuestras aventuras juntos son mi mayor tesoro 🗺️",
+    "El día que nos conocimos, supe que eras especial 💫"
   ];
 
   useEffect(() => {
     if (opened) {
       const interval = setInterval(() => {
         setCurrentPhotoIndex((prev) => (prev + 1) % photos.length);
-      }, 3000);
+      }, 4000);
       return () => clearInterval(interval);
     }
   }, [opened]);
@@ -25,37 +32,53 @@ const ValentinePage = () => {
   const handleOpen = () => {
     setOpened(true);
     setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 3000);
+    setTimeout(() => setShowConfetti(false), 4000);
   };
 
-  const memories = [
-    "Nuestro primer beso 💋",
-    "Aquella cena especial 🍝",
-    "Nuestro viaje juntos ✈️",
-    "Un día perfecto contigo 🌅"
-  ];
-
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-200 via-red-100 to-pink-200 p-4">
-      {/* Corazones flotantes con brillo */}
+    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-red-100 via-pink-100 to-red-100 p-4 overflow-hidden">
+      {/* Animated Background Hearts */}
+      <div className="fixed inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={`bg-heart-${i}`}
+            className="absolute animate-float-background"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 10}s`,
+              opacity: 0.05,
+              transform: `scale(${Math.random() * 2 + 1})`
+            }}
+          >
+            <Heart 
+              size={48} 
+              className="text-red-500"
+              fill="currentColor"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Floating hearts overlay */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(40)].map((_, i) => (
           <div
             key={i}
             className="absolute animate-float"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              opacity: Math.random() * 0.3 + 0.1
+              animationDelay: `${Math.random() * 7}s`,
+              opacity: Math.random() * 0.4 + 0.1
             }}
           >
             <Heart 
-              size={Math.random() * 20 + 10} 
+              size={Math.random() * 24 + 12} 
               className="text-red-400"
               style={{
                 transform: `rotate(${Math.random() * 360}deg)`,
-                filter: 'drop-shadow(0 0 2px rgba(255,255,255,0.5))'
+                filter: 'drop-shadow(0 0 3px rgba(255,182,193,0.7))'
               }}
             />
           </div>
@@ -64,100 +87,106 @@ const ValentinePage = () => {
 
       {!opened ? (
         <div className="transform hover:scale-105 transition-transform duration-300">
-          <div className="bg-white/90 backdrop-blur-sm shadow-lg rounded-2xl p-8 text-center max-w-md relative border-2 border-pink-300">
+          <div className="bg-white/95 backdrop-blur-sm shadow-xl rounded-3xl p-10 text-center max-w-md relative border-2 border-pink-300">
             <div className="absolute -top-4 -left-4">
-              <Stars size={32} className="text-yellow-400 animate-pulse" />
+              <Stars size={36} className="text-yellow-400 animate-pulse" />
             </div>
             <div className="absolute -bottom-4 -right-4">
-              <Stars size={32} className="text-yellow-400 animate-pulse" />
+              <Gift size={36} className="text-red-400 animate-bounce" />
             </div>
-            <Mail size={64} className="text-red-500 mx-auto hover:scale-110 transition-transform" />
-            <h2 className="text-3xl font-bold mt-6 text-gray-700">
-              Mi Princesa Hermosa 👑
+            <Mail size={72} className="text-red-500 mx-auto hover:scale-110 transition-transform" />
+            <h2 className="text-3xl font-bold mt-6 bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">
+              Mi Amor Eterno 💝
             </h2>
-            <p className="mt-4 text-gray-600 text-lg">
-              Preparé algo muy especial para ti... ¿Te gustaría verlo? 💝
+            <p className="mt-4 text-gray-600 text-lg font-medium">
+              He preparado algo especial que expresa todo lo que siento por ti... 
+              ¿Me concedes el honor de compartirlo contigo? 🌹
             </p>
             <button
               onClick={handleOpen}
-              className="mt-6 px-8 py-3 bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-full hover:shadow-lg hover:scale-105 transition-all duration-300 font-semibold"
+              className="mt-6 px-10 py-4 bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-lg"
             >
-              Abrir Con Amor ✨
+              Abrir Con Todo Mi Amor ✨
             </button>
           </div>
         </div>
       ) : (
-        <div className="relative">
-          <div className="bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-8 text-center max-w-2xl border-2 border-pink-300">
+        <div className="relative w-full max-w-4xl">
+          <div className="bg-white/95 backdrop-blur-sm shadow-2xl rounded-3xl p-8 text-center border-2 border-pink-300">
             <button
               onClick={() => setOpened(false)}
-              className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
             >
               <X size={24} />
             </button>
             
-            {/* Galería de fotos con transición suave */}
-            <div className="relative w-full h-64 mb-6 rounded-xl overflow-hidden">
+            {/* Fixed photo gallery */}
+            <div className="relative w-full mb-8 rounded-2xl overflow-hidden shadow-xl" style={{ aspectRatio: '16/9' }}>
               <img
                 src={photos[currentPhotoIndex]}
                 alt={memories[currentPhotoIndex]}
-                className="w-full h-full object-cover transition-opacity duration-500"
+                className="w-full h-full object-contain bg-black/10"
+                style={{ maxHeight: '600px' }}
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4">
-                <p className="text-white text-lg font-semibold">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+                <p className="text-white text-xl font-semibold">
                   {memories[currentPhotoIndex]}
                 </p>
               </div>
             </div>
 
             <div className="relative mb-8">
-              <Heart size={64} className="text-red-500 mx-auto animate-heartbeat" />
+              <Heart size={80} className="text-red-500 mx-auto animate-heartbeat" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                <Heart size={64} className="text-red-500 mx-auto animate-ping opacity-50" />
+                <Heart size={80} className="text-pink-400 mx-auto animate-ping opacity-50" />
               </div>
             </div>
 
-            <h2 className="text-4xl font-bold mt-6 bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">
-              ¡Feliz San Valentín, Mi Amor! 💖
+            <h2 className="text-5xl font-bold mt-6 bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">
+              ¡Feliz Día de San Valentín, Mi Vida! 💖
             </h2>
 
             <div className="mt-8 space-y-6">
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Cada mañana despierto agradecido por tenerte en mi vida. Tu sonrisa ilumina mis días,
-                tu amor me hace mejor persona, y tu presencia llena mi mundo de colores. Eres mi 
-                inspiración, mi compañera, mi mejor amiga y el amor de mi vida.
+              <p className="text-gray-600 text-xl leading-relaxed">
+                Cada latido de mi corazón lleva tu nombre, cada sonrisa mía es un reflejo de tu amor.
+                Eres el sueño que nunca supe que tenía hasta que te encontré. Tu amor transforma
+                los días ordinarios en momentos mágicos, y tu presencia hace que mi mundo brille
+                con una luz especial.
               </p>
               
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Juntos hemos creado tantos momentos especiales, y cada día contigo es una nueva
-                aventura que me hace más feliz. No puedo imaginar mi vida sin ti, mi amor.
+              <p className="text-gray-600 text-xl leading-relaxed">
+                Contigo, cada momento se convierte en un recuerdo precioso, cada risa en una melodía
+                que guardo en mi corazón. Eres mi presente, mi futuro, y el amor más hermoso que
+                la vida me ha regalado. Gracias por ser tú, por ser mía, por ser perfecta.
               </p>
             </div>
 
-            <div className="mt-8 p-6 bg-pink-50 rounded-xl border border-pink-200 shadow-inner">
-              <p className="text-gray-700 font-semibold text-xl">
-                Te amo infinitamente ❤️
+            <div className="mt-10 p-8 bg-gradient-to-r from-pink-50 to-red-50 rounded-2xl border border-pink-200 shadow-inner">
+              <Music size={32} className="text-red-400 mx-auto mb-4" />
+              <p className="text-gray-700 font-semibold text-2xl">
+                Te amo más allá de las palabras, más allá del tiempo,
+                más allá de todo lo imaginable ❤️
               </p>
-              <p className="text-2xl font-bold text-gray-800 mt-2">
+              <p className="text-3xl font-bold text-gray-800 mt-4 bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">
                 Miguel
               </p>
             </div>
           </div>
 
-          {/* Efecto de confeti mejorado */}
           {showConfetti && (
             <div className="absolute -top-8 left-1/2 -translate-x-1/2">
-              {[...Array(40)].map((_, i) => (
+              {[...Array(50)].map((_, i) => (
                 <div
                   key={i}
                   className="absolute animate-confetti"
                   style={{
-                    left: `${Math.random() * 400 - 200}px`,
-                    animationDelay: `${Math.random() * 1}s`,
+                    left: `${Math.random() * 600 - 300}px`,
+                    animationDelay: `${Math.random() * 2}s`,
                     backgroundColor: [
                       '#ff0080', '#ff4d94', '#ff99c2', '#ffb3d1', 
-                      '#ffd700', '#ff6b6b', '#ff85a2', '#ffa07a'
-                    ][Math.floor(Math.random() * 8)]
+                      '#ffd700', '#ff6b6b', '#ff85a2', '#ffa07a',
+                      '#ff1493', '#ff69b4'
+                    ][Math.floor(Math.random() * 10)]
                   }}
                 />
               ))}
@@ -169,14 +198,22 @@ const ValentinePage = () => {
   );
 };
 
-// Estilos mejorados
 const styles = `
   @keyframes float {
     0%, 100% {
       transform: translateY(0) rotate(0deg);
     }
     50% {
-      transform: translateY(-20px) rotate(5deg);
+      transform: translateY(-25px) rotate(8deg);
+    }
+  }
+
+  @keyframes float-background {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-100px) rotate(15deg);
     }
   }
 
@@ -185,7 +222,7 @@ const styles = `
       transform: scale(1);
     }
     50% {
-      transform: scale(1.2);
+      transform: scale(1.25);
     }
   }
 
@@ -193,30 +230,34 @@ const styles = `
     0% {
       transform: translateY(0) rotate(0deg);
       opacity: 1;
-      width: 6px;
-      height: 20px;
+      width: 8px;
+      height: 24px;
     }
     100% {
-      transform: translateY(300px) rotate(720deg);
+      transform: translateY(400px) rotate(960deg);
       opacity: 0;
-      width: 6px;
-      height: 20px;
+      width: 8px;
+      height: 24px;
     }
   }
 
   .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .animate-float-background {
+    animation: float-background 15s ease-in-out infinite;
   }
 
   .animate-heartbeat {
-    animation: heartbeat 1.5s ease-in-out infinite;
+    animation: heartbeat 2s ease-in-out infinite;
   }
 
   .animate-confetti {
     position: absolute;
-    width: 6px;
-    height: 20px;
-    animation: confetti 3s ease-out forwards;
+    width: 8px;
+    height: 24px;
+    animation: confetti 4s ease-out forwards;
   }
 `;
 
