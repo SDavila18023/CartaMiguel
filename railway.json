@@ -1,0 +1,8 @@
+{
+    "build": {
+      "builder": "nixpacks",
+      "buildCommand": "yarn build",
+      "startCommand": "yarn preview"
+    }
+  }
+  
